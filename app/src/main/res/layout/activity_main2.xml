@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+tools:context=".Main2Activity">
+
+<FrameLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <TextView
+            android:id="@+id/txtChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingBottom="100dp"
+            android:text="" />
+    </ScrollView>
+    <!--<ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtChat"/>-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+
+
+        <EditText
+            android:id="@+id/edtMensagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:hint=""
+            android:minHeight="40dp"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/publish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="bottom"
+            android:onClick="obterDados"
+            android:text="Enviar" />
+
+        <Button
+            android:id="@+id/publish2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="bottom"
+            android:layout_toStartOf="@+id/publish"
+            android:onClick="falar"
+            android:text="Falar" />
+    </RelativeLayout>
+
+
+</FrameLayout>
+
+</LinearLayout>
