@@ -44,7 +44,6 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         edtMensagem = (EditText) findViewById(R.id.edtMensagem);
-        //txtChat = (TextView) findViewById(R.id.txtChat);
 
         listaMsgs = (ListView) findViewById(R.id.listview);
         msgsBot = new ArrayList<String>();
@@ -56,15 +55,11 @@ public class Main2Activity extends AppCompatActivity {
 
         banco = new Banco(this);
 
-        /*File file = new File(banco.getWritableDatabase().getPath());
-        SQLiteDatabase.deleteDatabase(file);*/
         usuarioDAO = new UsuarioDAO();
         Intent intent = getIntent();
         String nome = intent.getStringExtra("nome");
         int id = usuarioDAO.insereUsuario(nome, banco);
         usuario1 = new Usuario(nome, id);
-
-
     }
 
     public void falar(View v){
@@ -112,15 +107,10 @@ public class Main2Activity extends AppCompatActivity {
         String novaMsg = mensagemDAO.insereMensagem(usuario1, banco, mensagem);
 
         msgsBot.add(usuario1.getNome()+ ": " + novaMsg);
-        //adapter.updateLisTView(msgsBot);
 
-        //Mensagem novaMsg = new Mensagem(usuario1.getId(), mensagem, mensagemId);
-
-        //txtChat.setText(txtChat.getText() + "                                                           "+usuario1.getNome() + ": "+ novaMsg + "\n");
         pegaDadosTask a = new pegaDadosTask(this, adapter, msgsBot);
         a.execute(mensagem, adapter, usuario1);
 
-        //msgsBot.add("UIHASIUDHASUDHAUDHAUDHAUIHASDUIHDSUIHSAD");
         adapter.updateLisTView(msgsBot);
         edtMensagem.setText("");
 

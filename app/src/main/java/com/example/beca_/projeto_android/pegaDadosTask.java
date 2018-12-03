@@ -29,7 +29,6 @@ class pegaDadosTask extends AsyncTask<Object, Void, String>{
 
     @Override
     protected void onPreExecute() {
-        //dialog = ProgressDialog.show(context, "Aguarde...", "Obtendo dados...", true, true);
 
     }
 
@@ -39,7 +38,6 @@ class pegaDadosTask extends AsyncTask<Object, Void, String>{
 
         try {
             String mensagem = params[0].toString();
-            //msgBot = (TextView)params[1];
 
             JSONStringer js = new JSONStringer();
             String json = js.object().key("query").value(mensagem).endObject().toString();
@@ -62,9 +60,6 @@ class pegaDadosTask extends AsyncTask<Object, Void, String>{
 
     @Override
     protected void onPostExecute(String resposta) {
-        //dialog.dismiss();
-
-
         try {
             JSONArray jsonArray = new JSONArray(resposta);
 
@@ -76,7 +71,6 @@ class pegaDadosTask extends AsyncTask<Object, Void, String>{
                 JSONArray jsonArray1 = jsonObject.getJSONArray("buttons");
                 for (int i = 0; i < jsonArray1.length(); i++) {
                     msgsBot.add(jsonArray1.getJSONObject(i).getString("title"));
-                    //
                 }
                 adapter.updateLisTView(msgsBot);
             }
