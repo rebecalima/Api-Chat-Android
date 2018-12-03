@@ -1,8 +1,10 @@
 package com.example.beca_.projeto_android;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Adapter;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -10,14 +12,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 
+import java.util.List;
+
 class pegaDadosTask extends AsyncTask<Object, Void, String>{
 
-    private Context context;
+    private Activity context;
     private Dialog dialog;
-    private TextView txtChat;
+    private AdapterMensagensBot adapter;
+    private List<String> msgsBot;
 
-    public pegaDadosTask(Context context) {
+    public pegaDadosTask(Activity context, AdapterMensagensBot adapterMsgBot, List<String> _msgsBot) {
         this.context = context;
+        this.adapter = adapterMsgBot;
+        this.msgsBot = _msgsBot;
     }
 
     @Override
@@ -32,11 +39,14 @@ class pegaDadosTask extends AsyncTask<Object, Void, String>{
 
         try {
             String mensagem = params[0].toString();
-            txtChat = (TextView)params[1];
+            //msgBot = (TextView)params[1];
+
             JSONStringer js = new JSONStringer();
             String json = js.object().key("query").value(mensagem).endObject().toString();
             WebClient webClient = new WebClient();
             String resposta = webClient.post(json, (Usuario)params[2]);
+
+
 
 
             return resposta;
@@ -60,20 +70,24 @@ class pegaDadosTask extends AsyncTask<Object, Void, String>{
 
             JSONObject jsonObject = jsonArray.getJSONObject(0);
             String text = jsonObject.getString("text").toString();
-            txtChat.setText(txtChat.getText().toString() + "Robo: " + text + "\n");
 
+            msgsBot.add("Robo: " + text);
             if(jsonObject.has("buttons")) {
                 JSONArray jsonArray1 = jsonObject.getJSONArray("buttons");
-
                 for (int i = 0; i < jsonArray1.length(); i++) {
-                    txtChat.setText(txtChat.getText() + jsonArray1.getJSONObject(i).getString("title") + "\n");
+                    msgsBot.add(jsonArray1.getJSONObject(i).getString("title"));
+                    //
                 }
+                adapter.updateLisTView(msgsBot);
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
-            txtChat.setText(e.toString());
         }
 
+    }
+
+    public List<String> getMensgs(){
+        return this.msgsBot;
     }
 }
